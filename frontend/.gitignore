@@ -1,0 +1,35 @@
+# Build Files #
+*.class
+build/*
+bin/*
+.classpath
+.project
+.settings/*
+out/*
+
+# Gradle Files #
+.gradle/*
+
+# Acheive Files #
+*.jar
+*.war
+*.ear
+
+# IDE Files #
+.idea/*
+*.iml
+
+# Third-part Files #
+**/node_modules/*
+**/bower_components/*
+**/vendors/*
+
+# Temp and Log Files #
+tmp/*
+*.log
+/bin/
+/build/
+
+/target/
+/bower_components/
+/node_modules/
