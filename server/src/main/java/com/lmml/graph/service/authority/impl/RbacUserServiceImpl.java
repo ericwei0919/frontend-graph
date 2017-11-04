@@ -1,13 +1,13 @@
 package com.lmml.graph.service.authority.impl;
+
 import com.lmml.graph.common.util.IdentifierUtil;
 import com.lmml.graph.domain.authority.RbacUser;
 import com.lmml.graph.repository.authority.RbacUserRepository;
 import com.lmml.graph.service.authority.RbacUserService;
 
-import lombok.extern.slf4j.Slf4j;
+import org.activiti.engine.RepositoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.sql.Timestamp;
 import java.util.List;
@@ -17,6 +17,9 @@ public class RbacUserServiceImpl implements RbacUserService {
 
     @Autowired
     private RbacUserRepository rbacUserRepo;
+
+    @Autowired
+    RepositoryService repositoryService;
 
     @Override
     public List<RbacUser> findUser() {
