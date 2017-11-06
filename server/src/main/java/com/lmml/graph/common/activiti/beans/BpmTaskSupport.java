@@ -9,7 +9,7 @@ public interface BpmTaskSupport {
     String KEY_CURR_TASK_NAME = "currTaskName";
     String KEY_CURR_TASK_ASSIGNEE = "currTaskAssignee";
 
-    boolean assign(String userId, String hostObjId);
-    boolean complete(String userId, String hostObjId, Map<String, Object> processVariables);
-    TaskInfo<?> generateTaskInfo(String sourceObjId, String userId, Map<String, Object> processVars);
+    boolean assignTaskSucess(String userId, String hostObjId);
+    boolean completeTaskSucess(String userId, String hostObjId, Map<String, Object> processVariables);
+    ProcessInstance generateProcessInstance(String sourceObjId, String userId, Map<String, Object> processVars);
 }
