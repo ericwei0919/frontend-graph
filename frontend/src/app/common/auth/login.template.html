@@ -11,6 +11,7 @@
       </span>
     </div>
   </div>
+
   <div class="col-sm-12" style="margin-top: 10px;">
     <table class="table table-striped">
       <thead>
@@ -39,5 +40,16 @@
       </tbody>
     </table>
   </div>
+
+  <div class="col-md-12">
+    <div class="input-group">
+      <input type="text" [(ngModel)]="groupName" name="groupName" placeholder="请输入用户名" class="form-control" #searchBox>
+      <input type="text" [(ngModel)]="activitiId" name="activitiId" placeholder="请输入流程名" class="form-control" #searchBox>
+      <span class="input-group-btn">
+        <button type="button" class="btn btn-primary" (click)="addGroup()">添加</button>
+      </span>
+    </div>
+  </div>
+
 </div>
 
