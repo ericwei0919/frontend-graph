@@ -1,6 +1,7 @@
 package com.lmml.graph.common.activiti.impl;
 
 import com.lmml.graph.common.activiti.InquireWorkFlowService;
+import com.lmml.graph.common.activiti.ProcessWorkFlowService;
 import com.lmml.graph.common.activiti.TransitProcessInstanceService;
 import com.lmml.graph.common.activiti.beans.PagingTask;
 import com.lmml.graph.common.activiti.beans.ProcessInstance;
@@ -12,6 +13,9 @@ public class TransitProcessInstanceServiceImpl implements TransitProcessInstance
 
     @Autowired
     private InquireWorkFlowService inquireWorkFlowService;
+
+    @Autowired
+    private ProcessWorkFlowService processWorkFlowService;
 
     @Override
     public ProcessInstance getProcessInstance(String hostObjId) {

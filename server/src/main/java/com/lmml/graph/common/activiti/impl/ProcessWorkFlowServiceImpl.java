@@ -15,6 +15,9 @@ import java.util.Map;
 @Service
 public class ProcessWorkFlowServiceImpl implements ProcessWorkFlowService {
 
+	public static final String KEY_TASK_OBJ_UID = "taskObjectUid";
+	public static final String KEY_PROCESS_TYPE = "processType";
+
 	@Autowired
 	RuntimeService runtimeService;
 
@@ -34,6 +37,13 @@ public class ProcessWorkFlowServiceImpl implements ProcessWorkFlowService {
 
 	@Override
 	public boolean completeTask(String userId, String hostObjId, BpmTaskCommand command) {
+		Map<String, Object> varFilters = new HashMap<String, Object>();
+		varFilters.put(KEY_TASK_OBJ_UID, hostObjId);
+		taskService.createTaskQuery()
+				.taskAssignee("kermit")
+				.processVariableValueEquals("orderId", "0815")
+				.orderByTaskCreateTime().asc()
+				.list();
 		try {
 			taskService.complete(userId, new HashMap<>());
 		} catch(Exception ex) {

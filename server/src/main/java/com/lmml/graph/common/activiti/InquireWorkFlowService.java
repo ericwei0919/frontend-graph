@@ -1,16 +1,25 @@
 package com.lmml.graph.common.activiti;
 
-import com.lmml.graph.common.activiti.beans.PagingTask;
 import com.lmml.graph.common.activiti.beans.TaskDetails;
+import org.activiti.engine.task.TaskInfo;
+
+import java.util.List;
+import java.util.Map;
 
 public interface InquireWorkFlowService {
 
     TaskDetails getProcessInstance(String hostObjId);
 
-    PagingTask<TaskDetails> getToDoTasks(String userId, int index, int pageSize);
+    List<TaskInfo> getToDoTasks(String userId);
 
-    PagingTask<TaskDetails> getInProgressTasks(String userId, int index, int pageSize);
+    List<TaskInfo> getInProgressTasks(String userId);
 
-    PagingTask<TaskDetails> getCompletedTasks(String userId, int index, int pageSize);
+    List<TaskInfo> getCompletedTasks(String userId);
+
+    TaskInfo getUpcomingTask(String userId, String hostObjId);
+
+    List<TaskInfo> getTaskByAssignee(String assignee, String processDefKey, Map<String, Object> varFilters);
+
+    List<TaskInfo> getTaskByCandidateGroup(String candidateGroup, String processDefKey, Map<String, Object> variableFilters);
 
 }

@@ -14,6 +14,9 @@ import java.io.InputStream;
 @Service
 public class DeployWorkflowService {
 
+    public static final String ACTIVITI_DESIGNATED_APPROVAL = "activiti_designated_approval";
+    public static final String ACTIVITI_PROCESS_APPROVAL = "activiti_process_approval";
+
     @Autowired
     RepositoryService repositoryService;
 
@@ -31,19 +34,28 @@ public class DeployWorkflowService {
     @PostConstruct
     void init() {
         this.deployABpmn();
+        this.deployBBpmn();
     }
+
+    //todo  Suspending and activating a process
 
     private boolean deployABpmn() {
         try {
-            Resource resource = resourceLoader.getResource("classpath:diagrams/userApplyIdentityV20171013_01.bpmn");
-            this.deploy("userApplyIdentityV20171013_01", resource.getInputStream());
+            Resource resource = resourceLoader.getResource("classpath:diagrams/"+ACTIVITI_DESIGNATED_APPROVAL+".bpmn");
+            this.deploy(ACTIVITI_DESIGNATED_APPROVAL, resource.getInputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false;
+        return true;
     }
 
     private boolean deployBBpmn() {
+        try {
+            Resource resource = resourceLoader.getResource("classpath:diagrams/"+ACTIVITI_PROCESS_APPROVAL+".bpmn");
+            this.deploy(ACTIVITI_PROCESS_APPROVAL, resource.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return true;
     }
 
