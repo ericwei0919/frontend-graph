@@ -6,9 +6,11 @@ import {AppComponent} from './app.component';
 import {HttpService} from './common/http.service';
 import {BaseComponent} from './base/base.component';
 import {ROUTES} from "./app.routes";
-import {AuthModule} from "./common/auth/auth.module";
 import {LayoutsModule} from "./common/layouts/layouts.module";
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import {AuthModule} from "./auth/auth.module";
+import {SettingModule} from "./setting/setting.module";
+import {TasksModule} from "./tasks/tasks.module";
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
     BrowserModule,HttpModule,
     RouterModule.forRoot(ROUTES),
     AuthModule,
-    LayoutsModule
+    LayoutsModule,
+    SettingModule,
+    TasksModule
   ],
   providers: [
     HttpService,

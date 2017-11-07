@@ -4,10 +4,12 @@ import {RouterModule} from "@angular/router";
 
 import {BsDropdownModule} from 'ngx-bootstrap';
 import {BlankLayoutComponent} from "./blankLayout.component";
+import {BasicLayoutComponent} from "./basicLayout.component";
 
 @NgModule({
   declarations: [
-    BlankLayoutComponent
+    BlankLayoutComponent,
+    BasicLayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -15,7 +17,8 @@ import {BlankLayoutComponent} from "./blankLayout.component";
     BsDropdownModule.forRoot()
   ],
   exports: [
-    BlankLayoutComponent
+    BlankLayoutComponent,
+    BasicLayoutComponent
   ],
 })
 

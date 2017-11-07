@@ -3,8 +3,8 @@ import {BrowserModule} from "@angular/platform-browser";
 import {RouterModule} from "@angular/router";
 
 import {FormsModule} from '@angular/forms';
-import {TooltipModule} from "ngx-bootstrap/index";
 import {LoginComponent} from "./login.component";
+import {TooltipModule} from "ngx-bootstrap/index";
 
 @NgModule({
   declarations: [LoginComponent],
