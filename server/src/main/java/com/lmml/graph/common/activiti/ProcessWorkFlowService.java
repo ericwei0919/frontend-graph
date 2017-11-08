@@ -11,7 +11,7 @@ public interface ProcessWorkFlowService {
 
     boolean assignTask(String userId, String hostObjId, BpmTaskCommand command);
 
-    boolean completeTask(String userId, String hostObjId, BpmTaskCommand command);
+    boolean completeTask(String userId, String hostObjId, BpmTaskCommand command,Map<String, Object> variableMap);
 
     boolean assignAndCompleteTask(String userId, String hostObjId, BpmTaskCommand command);
 

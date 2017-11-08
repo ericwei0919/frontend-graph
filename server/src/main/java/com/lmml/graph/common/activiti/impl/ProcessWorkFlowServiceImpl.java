@@ -4,6 +4,7 @@ import com.lmml.graph.common.activiti.ProcessWorkFlowService;
 import com.lmml.graph.common.activiti.beans.BpmTaskCommand;
 import org.activiti.engine.*;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,16 +37,15 @@ public class ProcessWorkFlowServiceImpl implements ProcessWorkFlowService {
 	}
 
 	@Override
-	public boolean completeTask(String userId, String hostObjId, BpmTaskCommand command) {
+	public boolean completeTask(String userId, String hostObjId, BpmTaskCommand command,Map<String, Object> variableMap) {
 		Map<String, Object> varFilters = new HashMap<String, Object>();
 		varFilters.put(KEY_TASK_OBJ_UID, hostObjId);
-		taskService.createTaskQuery()
-				.taskAssignee("kermit")
-				.processVariableValueEquals("orderId", "0815")
+		List<Task> list = taskService.createTaskQuery()
+				.taskAssignee(userId)
 				.orderByTaskCreateTime().asc()
 				.list();
 		try {
-			taskService.complete(userId, new HashMap<>());
+			taskService.complete(list.get(0).getId(), variableMap);
 		} catch(Exception ex) {
 			logger.error("任务["+userId+"]没有完成成功, 原因是:" + ex.getMessage());
 			return false;

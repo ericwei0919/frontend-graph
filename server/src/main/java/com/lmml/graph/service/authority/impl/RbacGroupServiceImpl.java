@@ -1,5 +1,7 @@
 package com.lmml.graph.service.authority.impl;
 
+import com.lmml.graph.common.activiti.ProcessWorkFlowService;
+import com.lmml.graph.common.interceptor.AuthService;
 import com.lmml.graph.common.util.IdentifierUtil;
 import com.lmml.graph.domain.authority.RbacGroup;
 import com.lmml.graph.repository.authority.RbacGroupRepository;
@@ -9,7 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RbacGroupServiceImpl implements RbacGroupService {
@@ -17,8 +21,15 @@ public class RbacGroupServiceImpl implements RbacGroupService {
     @Autowired
     private RbacGroupRepository rbacGroupRepo;
 
+    @Autowired
+    private AuthService authService;
+
+    @Autowired
+    private ProcessWorkFlowService processWorkFlowService;
+
     @Override
     public List<RbacGroup> findGroup() {
+        this.startActivit();
         return (List<RbacGroup>) rbacGroupRepo.findAll();
     }
 
@@ -34,5 +45,22 @@ public class RbacGroupServiceImpl implements RbacGroupService {
     @Override
     public List<RbacGroup> findGroupByActivitiId(String activitiId) {
         return rbacGroupRepo.findGroupByActivitiId(activitiId);
+    }
+
+    boolean startActivit(){
+        Map<String, Object> variableMap = new HashMap<>();
+        variableMap.put("approvers","15097999920830,1509799992000,15098000038991,1509800004000,15098000274222");
+        variableMap.put("classify","user");
+        variableMap.put("applyer",String.valueOf(authService.getUserId()));
+        String processInstanceId = processWorkFlowService.start("activiti_designated_approval", variableMap);
+        System.out.println(processInstanceId);
+        Map<String, Object> completeVariableMap = new HashMap<>();
+        completeVariableMap.put("approvalGroups","15099777254920,15099777617111,15099777720882");
+        completeVariableMap.put("classify","group");
+        completeVariableMap.put("attitude","agree");
+        boolean b = processWorkFlowService.completeTask("15097999920830", null, null, completeVariableMap);
+
+        System.out.println(b);
+        return true;
     }
 }
