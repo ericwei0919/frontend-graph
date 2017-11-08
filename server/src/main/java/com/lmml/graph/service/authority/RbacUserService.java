@@ -1,6 +1,6 @@
 package com.lmml.graph.service.authority;
 
-import com.lmml.graph.domain.authority.AuthToken;
+import com.lmml.graph.common.util.ResponseWrapper;
 import com.lmml.graph.domain.authority.RbacUser;
 
 import java.util.List;
@@ -13,5 +13,5 @@ public interface RbacUserService {
 
     boolean deleteById(String id);
 
-    AuthToken doLogin(RbacUser user);
+    ResponseWrapper<RbacUser> doLogin(RbacUser user);
 }

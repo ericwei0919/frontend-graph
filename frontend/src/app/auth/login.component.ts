@@ -1,57 +1,29 @@
-import {Component, OnInit} from '@angular/core';
-import {BaseComponent} from "../base/base.component";
+import {Component} from '@angular/core';
+import {Md5} from 'ts-md5/dist/md5';
+import {HttpService} from "../common/http.service";
+import {Router} from "@angular/router";
 
-declare var $:any;
 @Component({
   selector: 'login',
-  templateUrl: 'login.template.html'
+  templateUrl: './login.template.html',
+  styleUrls: ['./login.component.css'],
+  providers: [Md5]
 })
-export class LoginComponent extends BaseComponent implements OnInit {
+export class LoginComponent {
+  user = {'loginId': '', 'password': ''};
 
-  title:any = "";
-  userName:any = "";
-  users:any = [];
-  groupName:any = "";
-  activitiId:any = "";
-  groups:any = [];
-
-  ngOnInit():void {
-    $("#todo, #inprogress, #completed").sortable({
-      connectWith: ".connectList",
-      update: function( event, ui ) {
-        var todo = $( "#todo" ).sortable( "toArray" );
-        var inprogress = $( "#inprogress" ).sortable( "toArray" );
-        var completed = $( "#completed" ).sortable( "toArray" );
-        $('.output').html("ToDo: " + JSON.stringify(todo) + "<br/>" + "In Progress: " + JSON.stringify(inprogress) + "<br/>" + "Completed: " + JSON.stringify(completed));
-      }
-    }).disableSelection();
+  constructor(private md5:Md5,
+              private httpService:HttpService,
+              private router:Router) {
+    localStorage.clear();
   }
 
-  open() {
-    this.httpService.get("user").subscribe(res => {
-      this.users = res.content;
-    });
-    this.httpService.get("group").subscribe(res => {
-      this.groups = res.content;
+  doLogin() {
+    this.httpService.post('/user/login',
+      {'loginId': this.user.loginId, 'password': Md5.hashStr(this.user.password)}
+      ).subscribe(res => {
+      localStorage.setItem("token", res.options.token);
+      this.router.navigate(['setting/user']);
     });
   }
-
-  addUser() {
-    if (this.userName) {
-      let users = [{userName: this.userName}];
-      this.httpService.post("user", users).subscribe(res => {
-        this.title = res.content;
-      });
-    }
-  }
-
-  addGroup() {
-    if (this.activitiId&&this.groupName) {
-      let groups = [{groupName: this.groupName,activitiId: this.activitiId}];
-      this.httpService.post("group", groups).subscribe(res => {
-        this.title = res.content;
-      });
-    }
-  }
-
 }

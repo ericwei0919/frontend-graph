@@ -10,6 +10,8 @@ public class RbacUser {
     private Long userId;
     private Timestamp createTimestamp;
     private String userName;
+    private String loginId;
+    private String password;
 
     @Id
     @Column(name = "user_id", nullable = false)
@@ -32,7 +34,7 @@ public class RbacUser {
     }
 
     @Basic
-    @Column(name = "user_name", nullable = true, length = 255)
+    @Column(name = "user_name", nullable = false, length = 255)
     public String getUserName() {
         return userName;
     }
@@ -41,6 +43,25 @@ public class RbacUser {
         this.userName = userName;
     }
 
+    @Basic
+    @Column(name = "login_id", nullable = false, length = 255)
+    public String getLoginId() {
+        return loginId;
+    }
+
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
+    }
+
+    @Basic
+    @Column(name = "password", nullable = false, length = 255)
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -48,8 +69,9 @@ public class RbacUser {
         if (o == null || getClass() != o.getClass()) return false;
         RbacUser rbacUser = (RbacUser) o;
         if (userId != null ? !userId.equals(rbacUser.userId) : rbacUser.userId != null) return false;
-        if (createTimestamp != null ? !createTimestamp.equals(rbacUser.createTimestamp) : rbacUser.createTimestamp != null)
-        if (userName != null ? !userName.equals(rbacUser.userName) : rbacUser.userName != null) return false;
+        if (createTimestamp != null ? !createTimestamp.equals(rbacUser.createTimestamp) : rbacUser.createTimestamp != null) if (userName != null ? !userName.equals(rbacUser.userName) : rbacUser.userName != null) return false;
+        if (loginId != null ? !loginId.equals(rbacUser.loginId) : rbacUser.loginId != null) return false;
+        if (password != null ? !password.equals(rbacUser.password) : rbacUser.password != null) return false;
         return true;
     }
 
@@ -58,6 +80,8 @@ public class RbacUser {
         int result = userId != null ? userId.hashCode() : 0;
         result = 31 * result + (createTimestamp != null ? createTimestamp.hashCode() : 0);
         result = 31 * result + (userName != null ? userName.hashCode() : 0);
+        result = 31 * result + (loginId != null ? loginId.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
     }
 

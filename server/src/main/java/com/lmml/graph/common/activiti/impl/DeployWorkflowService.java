@@ -33,8 +33,8 @@ public class DeployWorkflowService {
 
     @PostConstruct
     void init() {
-       /* this.deployABpmn();
-        this.deployBBpmn();*/
+        this.deployABpmn();
+        //this.deployBBpmn();
     }
 
     //todo  Suspending and activating a process

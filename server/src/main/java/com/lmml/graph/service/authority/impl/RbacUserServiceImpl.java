@@ -1,7 +1,8 @@
 package com.lmml.graph.service.authority.impl;
 
+import com.lmml.graph.common.exception.ApplicationException;
 import com.lmml.graph.common.util.IdentifierUtil;
-import com.lmml.graph.domain.authority.AuthToken;
+import com.lmml.graph.common.util.ResponseWrapper;
 import com.lmml.graph.domain.authority.RbacUser;
 import com.lmml.graph.repository.authority.RbacUserRepository;
 import com.lmml.graph.service.authority.RbacUserService;
@@ -47,15 +48,29 @@ public class RbacUserServiceImpl implements RbacUserService {
     }
 
     @Override
-    public AuthToken doLogin(RbacUser user) {
-        return generateToken(user);
+    public ResponseWrapper<RbacUser> doLogin(RbacUser user) {
+        String loginPassword = user.getPassword();
+        user = rbacUserRepo.findByLoginId(user.getLoginId());
+        String password = user.getPassword();
+        if (!password.equals(loginPassword)){
+            throw new ApplicationException("登录失败！");
+        }
+        ResponseWrapper<RbacUser> wrapper = new ResponseWrapper<>();
+        wrapper.setContent(user);
+        wrapper.addOption("token", generateToken(user));
+        return wrapper;
     }
-    private final SignatureAlgorithm algorithm = SignatureAlgorithm.HS256;
-    private AuthToken generateToken(RbacUser dto) {
-        String token = Jwts.builder().setSubject(String.valueOf(dto.getUserId()))
-                .claim("attribute", dto).setIssuedAt(new Date())
-                .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
-        AuthToken authToken = new AuthToken(token);
-        return authToken;
+
+    public String generateToken(RbacUser dto) {
+        LocalDateTime currentTime = LocalDateTime.now();
+        return Jwts.builder()
+                .setSubject(String.valueOf(dto.getUserId()))
+                .claim("userName", dto.getUserName())
+                .setIssuedAt(Date.from(currentTime.atZone(ZoneId.systemDefault()).toInstant()))
+                .setExpiration(Date.from(currentTime
+                        .plusMinutes(new Date().getTime())
+                        .atZone(ZoneId.systemDefault()).toInstant()))
+                .signWith(SignatureAlgorithm.HS256, "air_secretKey")
+                .compact();
     }
 }

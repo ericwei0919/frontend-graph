@@ -1,7 +1,6 @@
 package com.lmml.graph.controller.authority;
 
 import com.lmml.graph.common.util.ResponseWrapper;
-import com.lmml.graph.domain.authority.AuthToken;
 import com.lmml.graph.domain.authority.RbacUser;
 import com.lmml.graph.service.authority.RbacUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +29,8 @@ public class RbacUserController {
     }
 
     @PostMapping("/login")
-    public ResponseWrapper<AuthToken> login(@RequestBody RbacUser user) throws Exception {
-        AuthToken  authToken= this.userService.doLogin(user);
-        return ResponseWrapper.success(authToken);
+    public ResponseWrapper<RbacUser> login(@RequestBody RbacUser user) throws Exception {
+        return this.userService.doLogin(user);
     }
 
 }

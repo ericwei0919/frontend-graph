@@ -6,4 +6,6 @@ import com.lmml.graph.repository.base.PagingAndSpecificationRepository;
 public interface RbacUserRepository extends PagingAndSpecificationRepository<RbacUser,Long> {
 
     boolean deleteByUserId(String id);
+
+    RbacUser findByLoginId(String loginId);
 }

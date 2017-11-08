@@ -1,0 +1,26 @@
+.middle-box {
+  max-width: 400px;
+  z-index: 100;
+  margin: 0 auto;
+  padding-top: 100px;
+}
+
+.text-center {
+  text-align: center
+}
+
+.loginscreen.middle-box {
+  width: 300px;
+}
+
+.m-t {
+  margin-top: 15px;
+}
+
+.loginscreen.middle-box {
+  width: 300px;
+}
+
+.full-width {
+  width: 100% !important;
+}
