@@ -22,18 +22,18 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let item of users;let idx = index">
+    <tr *ngFor="let item of groups;let idx = index">
       <td>
         <div>{{ idx + 1 }}</div>
       </td>
       <td>
-        <div>{{ item.userId }}</div>
+        <div>{{ item.groupId }}</div>
       </td>
       <td>
-        <div>{{ item.userName }}</div>
+        <div>{{ item.groupName }}</div>
       </td>
       <td>
-        <div>{{ item.userName }}</div>
+        <div>{{ item.activitiId }}</div>
       </td>
       <td>
         <div>{{ item.createTimestamp }}</div>

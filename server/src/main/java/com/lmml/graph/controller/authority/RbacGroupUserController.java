@@ -4,7 +4,6 @@ import com.lmml.graph.common.util.ResponseWrapper;
 import com.lmml.graph.domain.authority.RbacGroupUser;
 import com.lmml.graph.domain.authority.RbacUser;
 import com.lmml.graph.service.authority.RbacGroupUserService;
-import com.lmml.graph.service.authority.RbacUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,5 +29,15 @@ public class RbacGroupUserController {
         return ResponseWrapper.success(info);
     }
 
+    @GetMapping("/{groupId}")
+    public ResponseWrapper findGroupUsersByGroupId(@PathVariable Long groupId) throws Exception {
+        List<RbacUser> info = rbacGroupUserService.findGroupUsersByGroupId(groupId);
+        return ResponseWrapper.success(info);
+    }
 
+    @DeleteMapping
+    public ResponseWrapper removeUsersFromGroup(@RequestBody List<Long> reIds) throws Exception {
+        int count = rbacGroupUserService.removeUsersFromGroup(reIds);
+        return ResponseWrapper.success(count);
+    }
 }

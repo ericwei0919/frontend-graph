@@ -8,6 +8,8 @@ import {UpcomingTasksComponent} from "./tasks/upcoming.tasks.component";
 import {ProcessingTasksComponent} from "./tasks/processing.tasks.component";
 import {CompleteTasksComponent} from "./tasks/complete.tasks.component";
 import {ClaimTasksComponent} from "./tasks/claim.tasks.component";
+import {TrendGraphComponent} from "./graph/trend.graph.component";
+import {GroupUserComponent} from "./setting/group.user.component";
 
 export const ROUTES: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -21,7 +23,8 @@ export const ROUTES: Routes = [
     path: 'setting', component: BasicLayoutComponent,
     children: [
       {path: 'user', component: UserComponent},
-      {path: 'group', component: GroupComponent}
+      {path: 'group', component: GroupComponent},
+      {path: 'grpUsr', component: GroupUserComponent}
     ]
   },
   {
@@ -31,6 +34,12 @@ export const ROUTES: Routes = [
       {path: 'processing', component: ProcessingTasksComponent},
       {path: 'upcoming', component: UpcomingTasksComponent},
       {path: 'claim', component: ClaimTasksComponent}
+    ]
+  },
+  {
+    path: 'graph', component: BasicLayoutComponent,
+    children: [
+      {path: 'trend', component: TrendGraphComponent}
     ]
   }
 ];

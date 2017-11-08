@@ -8,4 +8,6 @@ public interface RbacGroupService {
     List<RbacGroup> findGroup();
 
     List<RbacGroup> save(List<RbacGroup> groups);
+
+    List<RbacGroup> findGroupByActivitiId(String activitiId);
 }

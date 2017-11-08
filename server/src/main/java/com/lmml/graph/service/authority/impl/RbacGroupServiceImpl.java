@@ -30,4 +30,9 @@ public class RbacGroupServiceImpl implements RbacGroupService {
         });
         return (List<RbacGroup>) rbacGroupRepo.save(groups);
     }
+
+    @Override
+    public List<RbacGroup> findGroupByActivitiId(String activitiId) {
+        return rbacGroupRepo.findGroupByActivitiId(activitiId);
+    }
 }

@@ -3,15 +3,11 @@ import {BrowserModule} from "@angular/platform-browser";
 import {RouterModule} from "@angular/router";
 import {FormsModule} from '@angular/forms';
 import {TooltipModule} from "ngx-bootstrap/index";
-import {UserComponent} from "./user.component";
-import {GroupComponent} from "./group.component";
-import {GroupUserComponent} from "./group.user.component";
+import {TrendGraphComponent} from "./trend.graph.component";
 
 @NgModule({
   declarations: [
-    UserComponent,
-    GroupComponent,
-    GroupUserComponent
+    TrendGraphComponent
   ],
   imports: [
     FormsModule,
@@ -22,5 +18,5 @@ import {GroupUserComponent} from "./group.user.component";
   exports: [],
 })
 
-export class SettingModule {
+export class GraphModule {
 }

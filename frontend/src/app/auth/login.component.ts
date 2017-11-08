@@ -16,7 +16,15 @@ export class LoginComponent extends BaseComponent implements OnInit {
   groups:any = [];
 
   ngOnInit():void {
-
+    $("#todo, #inprogress, #completed").sortable({
+      connectWith: ".connectList",
+      update: function( event, ui ) {
+        var todo = $( "#todo" ).sortable( "toArray" );
+        var inprogress = $( "#inprogress" ).sortable( "toArray" );
+        var completed = $( "#completed" ).sortable( "toArray" );
+        $('.output').html("ToDo: " + JSON.stringify(todo) + "<br/>" + "In Progress: " + JSON.stringify(inprogress) + "<br/>" + "Completed: " + JSON.stringify(completed));
+      }
+    }).disableSelection();
   }
 
   open() {

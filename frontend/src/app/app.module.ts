@@ -11,6 +11,7 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {AuthModule} from "./auth/auth.module";
 import {SettingModule} from "./setting/setting.module";
 import {TasksModule} from "./tasks/tasks.module";
+import {GraphModule} from "./graph/graph.module";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {TasksModule} from "./tasks/tasks.module";
     AuthModule,
     LayoutsModule,
     SettingModule,
-    TasksModule
+    TasksModule,
+    GraphModule
   ],
   providers: [
     HttpService,
