@@ -41,7 +41,7 @@ public class ProcessWorkFlowServiceImpl implements ProcessWorkFlowService {
 		Map<String, Object> varFilters = new HashMap<String, Object>();
 		varFilters.put(KEY_TASK_OBJ_UID, hostObjId);
 		List<Task> list = taskService.createTaskQuery()
-				.taskAssignee(userId)
+				.taskCandidateUser(userId)
 				.orderByTaskCreateTime().asc()
 				.list();
 		try {

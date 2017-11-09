@@ -2,8 +2,8 @@
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" id="m1510045651297" name="" targetNamespace="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema">
   <process id="activiti_designated_approval" isClosed="false" isExecutable="true" processType="None">
     <startEvent id="_2"/>
-    <userTask activiti:candidateGroups="${workFlowQueryService.showGroups(approvalGroups)}" activiti:exclusive="true" id="_3" name="YHZ1"/>
-    <userTask activiti:candidateUsers="${workFlowQueryService.showUsers(approvers)}" activiti:exclusive="true" id="_4" name="YH2"/>
+    <userTask activiti:candidateGroups="${approvalGroups}" activiti:exclusive="true" id="_3" name="YHZ1"/>
+    <userTask activiti:candidateUsers="${approvers}" activiti:exclusive="true" id="_4" name="YH2"/>
     <exclusiveGateway gatewayDirection="Unspecified" id="_5"/>
     <sequenceFlow id="_7" sourceRef="_5" targetRef="_3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${classify == 'group'}]]></conditionExpression>
@@ -19,9 +19,9 @@
     </sequenceFlow>
     <exclusiveGateway gatewayDirection="Unspecified" id="_13"/>
     <sequenceFlow id="_14" sourceRef="_9" targetRef="_13">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${attitude != 'agree'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${attitude == 'agree'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask activiti:candidateUsers="${workFlowQueryService.showUsers(approvers)}"  activiti:exclusive="true" id="_15" name="YH1"/>
+    <userTask activiti:candidateUsers="${approvers}" activiti:exclusive="true" id="_15" name="YH1"/>
     <sequenceFlow id="_16" sourceRef="_13" targetRef="_15">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${classify == 'user'}]]></conditionExpression>
     </sequenceFlow>
@@ -31,10 +31,10 @@
     <sequenceFlow id="_21" sourceRef="_18" targetRef="_19">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${attitude != 'agree'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask activiti:candidateGroups="${workFlowQueryService.showGroups(approvalGroups)}" activiti:exclusive="true" id="_22" name="YHU2"/>
+    <userTask activiti:candidateGroups="${approvalGroups}" activiti:exclusive="true" id="_22" name="YHU2"/>
     <exclusiveGateway gatewayDirection="Unspecified" id="_26"/>
     <sequenceFlow id="_27" sourceRef="_18" targetRef="_26">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${attitude != 'agree'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${attitude == 'agree'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_28" sourceRef="_26" targetRef="_22">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${classify == 'group'}]]></conditionExpression>
@@ -246,7 +246,7 @@
         <omgdi:waypoint x="985.0" y="450.0"/>
         <omgdi:waypoint x="985.0" y="495.0"/>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+          <omgdc:Bounds height="-8.0" width="0.0" x="0.0" y="-55.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_38" id="BPMNEdge__38" sourceElement="_13" targetElement="_3">
@@ -331,7 +331,7 @@
         <omgdi:waypoint x="735.0" y="520.0"/>
         <omgdi:waypoint x="945.0" y="520.0"/>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+          <omgdc:Bounds height="0.0" width="87.0" x="0.0" y="15.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_7" id="BPMNEdge__7" sourceElement="_5" targetElement="_3">
