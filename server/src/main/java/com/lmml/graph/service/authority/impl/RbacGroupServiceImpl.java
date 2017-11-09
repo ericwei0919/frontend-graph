@@ -1,8 +1,10 @@
 package com.lmml.graph.service.authority.impl;
 
 import com.lmml.graph.common.activiti.ProcessWorkFlowService;
+import com.lmml.graph.common.activiti.beans.BpmTaskCommand;
 import com.lmml.graph.common.interceptor.AuthService;
 import com.lmml.graph.common.util.IdentifierUtil;
+import com.lmml.graph.common.util.WorkflowConst;
 import com.lmml.graph.domain.authority.RbacGroup;
 import com.lmml.graph.repository.authority.RbacGroupRepository;
 import com.lmml.graph.service.authority.RbacGroupService;
@@ -29,7 +31,6 @@ public class RbacGroupServiceImpl implements RbacGroupService {
 
     @Override
     public List<RbacGroup> findGroup() {
-        this.startActivit();
         return (List<RbacGroup>) rbacGroupRepo.findAll();
     }
 
@@ -39,6 +40,8 @@ public class RbacGroupServiceImpl implements RbacGroupService {
             rbacGroup.setGroupId(IdentifierUtil.generateID());
             rbacGroup.setCreateTimestamp(new Timestamp(new Date().getTime()));
         });
+        this.startActivit(groups.get(0).getGroupId());
+        this.assignAndCompleteTask();
         return (List<RbacGroup>) rbacGroupRepo.save(groups);
     }
 
@@ -47,20 +50,25 @@ public class RbacGroupServiceImpl implements RbacGroupService {
         return rbacGroupRepo.findGroupByActivitiId(activitiId);
     }
 
-    boolean startActivit(){
+    boolean startActivit(Long actBusinessId) {
         Map<String, Object> variableMap = new HashMap<>();
-        variableMap.put("approvers","15097999920830,1509799992000,15098000038991,1509800004000,15098000274222");
-        variableMap.put("classify","user");
-        variableMap.put("applyer",String.valueOf(authService.getUserId()));
+        variableMap.put("approvers", "15097999920830,1509799992000,15098000038991,1509800004000,15098000274222");
+        variableMap.put("classify", "user");
+        variableMap.put(WorkflowConst.KEY_ACT_THREA_CODE, actBusinessId);
+        variableMap.put("applyer", String.valueOf(authService.getUserId()));
         String processInstanceId = processWorkFlowService.start("activiti_designated_approval", variableMap);
         System.out.println(processInstanceId);
-        Map<String, Object> completeVariableMap = new HashMap<>();
-        completeVariableMap.put("approvalGroups","15099777254920,15099777617111,15099777720882");
-        completeVariableMap.put("classify","group");
-        completeVariableMap.put("attitude","agree");
-        boolean b = processWorkFlowService.completeTask("15097999920830", null, null, completeVariableMap);
-
-        System.out.println(b);
         return true;
+    }
+
+    void assignAndCompleteTask() {
+        Map<String, Object> completeVariableMap = new HashMap<>();
+        completeVariableMap.put("approvalGroups", "15099777254920,15099777617111,15099777720882");
+        completeVariableMap.put("classify", "group");
+        completeVariableMap.put("attitude", "agree");
+        BpmTaskCommand command = new BpmTaskCommand();
+        command.setVariableMap(completeVariableMap);
+        boolean b = processWorkFlowService.assignAndCompleteTask(authService.getUserId(), 15102452506780l, command);
+        System.out.println(b);
     }
 }

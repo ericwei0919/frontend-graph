@@ -9,20 +9,20 @@ public interface ProcessWorkFlowService {
 
     String start(String processDefinitionKey, Map<String, Object> variableMap);
 
-    boolean assignTask(String userId, String hostObjId, BpmTaskCommand command);
+    boolean assignTask(Long userId, Long hostObjId, BpmTaskCommand command);
 
-    boolean completeTask(String userId, String hostObjId, BpmTaskCommand command,Map<String, Object> variableMap);
+    boolean completeTask(Long userId, Long hostObjId, BpmTaskCommand command,Map<String, Object> variableMap);
 
-    boolean assignAndCompleteTask(String userId, String hostObjId, BpmTaskCommand command);
+    boolean assignAndCompleteTask(Long userId, Long hostObjId, BpmTaskCommand command);
 
-    boolean processTaskThenDesignatedHandler(String userId, String hostObjId, List<Long> groupIds, BpmTaskCommand command);
+    boolean processTaskThenDesignatedHandler(Long userId, Long hostObjId, List<Long> users, BpmTaskCommand command);
 
-    boolean processTaskThenDesignatedProcessingDepartment(String userId, String hostObjId, List<Long> groupIds, BpmTaskCommand command);
+    boolean processTaskThenDesignatedProcessingDepartment(Long userId, Long hostObjId, List<Long> groupIds, BpmTaskCommand command);
 
-    boolean terminateTheProcess(String hostObjId);
+    boolean terminateTheProcess(Long hostObjId);
 
-    boolean endTheProcess(String hostObjId);
+    boolean endTheProcess(Long hostObjId);
 
-    boolean deleteTheProcess(String hostObjId);
+    boolean deleteTheProcess(Long hostObjId);
 
 }

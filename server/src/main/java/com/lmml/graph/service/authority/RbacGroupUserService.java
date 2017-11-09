@@ -14,4 +14,5 @@ public interface RbacGroupUserService {
 
     int removeUsersFromGroup(List<Long> reIds);
 
+    List<RbacGroupUser> findGroupUsersByUserId(Long userId);
 }

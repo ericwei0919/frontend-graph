@@ -1,6 +1,5 @@
 package com.lmml.graph.common.activiti;
 
-import com.lmml.graph.common.activiti.beans.TaskDetails;
 import org.activiti.engine.task.TaskInfo;
 
 import java.util.List;
@@ -8,18 +7,15 @@ import java.util.Map;
 
 public interface InquireWorkFlowService {
 
-    TaskDetails getProcessInstance(String hostObjId);
+    List<TaskInfo> getProcessInstance(Long actBusinessId);
 
-    List<TaskInfo> getToDoTasks(String userId);
+    List<TaskInfo> getProcessInstance(Long assignee,Long actBusinessId);
 
-    List<TaskInfo> getInProgressTasks(String userId);
+    List<TaskInfo> getTaskByAssignee(Long assignee, String processDefKey, Map<String, Object> varFilters);
 
-    List<TaskInfo> getCompletedTasks(String userId);
+    List<TaskInfo> getTaskByCandidateGroup(List<Long> candidateGroups, String processDefKey, Map<String, Object> variableFilters);
 
-    TaskInfo getUpcomingTask(String userId, String hostObjId);
+    List<TaskInfo> getTaskByCandidateUser(Long candidateUser, String processDefKey, Map<String, Object> variableFilters);
 
-    List<TaskInfo> getTaskByAssignee(String assignee, String processDefKey, Map<String, Object> varFilters);
-
-    List<TaskInfo> getTaskByCandidateGroup(String candidateGroup, String processDefKey, Map<String, Object> variableFilters);
-
+    List<TaskInfo> getCompletedTasks(Long userId, String processDefKey, Boolean isProcessFinished);
 }

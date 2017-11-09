@@ -42,4 +42,9 @@ public class RbacGroupUserServiceImpl implements RbacGroupUserService {
         rbacGroupUserRepo.delete(needRemoves);
         return ((List<RbacGroupUser>)needRemoves).size();
     }
+
+    @Override
+    public List<RbacGroupUser> findGroupUsersByUserId(Long userId) {
+        return rbacGroupUserRepo.findByUserId(userId);
+    }
 }
