@@ -1,13 +1,15 @@
 <div class="col-md-12">
-  <div class="col-md-5">
-    <input type="text" [(ngModel)]="groupName" name="groupName" placeholder="请输入用户名" class="form-control">
+  <div class="col-md-1">
+    <button class="btn btn-primary" type="button"
+            (click)="openAddGroupComponent()">新增组</button>
   </div>
-  <div class="col-md-5">
-    <input type="text" [(ngModel)]="activitiId" name="activitiId" placeholder="请输入流程名" class="form-control">
-  </div>
-  <div class="col-md-2">
-    <button type="button" class="btn btn-primary" (click)="addGroup()">添加</button>
-    <button type="button" class="btn btn-primary" (click)="query()">查询组</button>
+  <div class="col-md-11">
+    <div class="input-group">
+      <input type="text" [(ngModel)]="userName" name="userName" placeholder="请输入组名" class="form-control" #searchBox>
+      <span class="input-group-btn">
+        <button type="button" class="btn btn-primary" (click)="query()">查询组</button>
+      </span>
+    </div>
   </div>
 </div>
 <div class="col-sm-12" style="margin-top: 10px;">

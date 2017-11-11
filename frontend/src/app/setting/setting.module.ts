@@ -7,12 +7,14 @@ import {UserComponent} from "./user/user.component";
 import {ModalModule} from "ngx-bootstrap/index";
 import {GroupComponent} from "./group/group.component";
 import {GroupUserComponent} from "./group/group.user.component";
+import {AddGroupComponent} from "./group/add.group.component";
 
 @NgModule({
   declarations: [
     UserComponent,
     GroupComponent,
-    GroupUserComponent
+    GroupUserComponent,
+    AddGroupComponent
   ],
   imports: [
     FormsModule,
@@ -23,7 +25,9 @@ import {GroupUserComponent} from "./group/group.user.component";
     TypeaheadModule.forRoot()
   ],
   exports: [],
-  entryComponents: [GroupUserComponent]
+  entryComponents: [
+    GroupUserComponent,
+    AddGroupComponent]
 })
 
 export class SettingModule {
