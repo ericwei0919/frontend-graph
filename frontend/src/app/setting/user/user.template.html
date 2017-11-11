@@ -1,12 +1,12 @@
 <div style="margin-top: 10px;">
   <div class="col-md-1">
-    <button class="btn btn-primary" type="button" (click)="query()">查询用户</button>
+    <button class="btn btn-primary" type="button" (click)="addUser()">新增用户</button>
   </div>
   <div class="col-md-11">
     <div class="input-group">
       <input type="text" [(ngModel)]="userName" name="userName" placeholder="请输入用户名" class="form-control" #searchBox>
       <span class="input-group-btn">
-        <button type="button" class="btn btn-primary" (click)="addUser()">添加</button>
+        <button type="button" class="btn btn-primary" (click)="query()">查询用户</button>
       </span>
     </div>
   </div>

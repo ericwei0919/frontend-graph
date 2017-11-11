@@ -2,10 +2,11 @@ import {NgModule} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
 import {RouterModule} from "@angular/router";
 import {FormsModule} from '@angular/forms';
-import {TooltipModule} from "ngx-bootstrap/index";
-import {UserComponent} from "./user.component";
-import {GroupComponent} from "./group.component";
-import {GroupUserComponent} from "./group.user.component";
+import {TooltipModule,TypeaheadModule} from "ngx-bootstrap/index";
+import {UserComponent} from "./user/user.component";
+import {ModalModule} from "ngx-bootstrap/index";
+import {GroupComponent} from "./group/group.component";
+import {GroupUserComponent} from "./group/group.user.component";
 
 @NgModule({
   declarations: [
@@ -17,9 +18,12 @@ import {GroupUserComponent} from "./group.user.component";
     FormsModule,
     BrowserModule,
     RouterModule,
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+    ModalModule.forRoot(),
+    TypeaheadModule.forRoot()
   ],
   exports: [],
+  entryComponents: [GroupUserComponent]
 })
 
 export class SettingModule {

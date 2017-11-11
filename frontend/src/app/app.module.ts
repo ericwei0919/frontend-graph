@@ -12,6 +12,7 @@ import {AuthModule} from "./auth/auth.module";
 import {SettingModule} from "./setting/setting.module";
 import {TasksModule} from "./tasks/tasks.module";
 import {GraphModule} from "./graph/graph.module";
+import {ModalModule} from "ngx-bootstrap/index";
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {GraphModule} from "./graph/graph.module";
   imports: [
     BrowserModule,HttpModule,
     RouterModule.forRoot(ROUTES),
+    ModalModule.forRoot(),
     AuthModule,
     LayoutsModule,
     SettingModule,

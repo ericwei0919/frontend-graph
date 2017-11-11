@@ -19,6 +19,7 @@
       <th>分组名</th>
       <th>ActivitiID</th>
       <th>添加时间</th>
+      <th>操作</th>
     </tr>
     </thead>
     <tbody>
@@ -37,6 +38,13 @@
       </td>
       <td>
         <div>{{ item.createTimestamp }}</div>
+      </td>
+      <td>
+        <button type="button"
+                class="btn btn-primary"
+                (click)="openGroupUserWithComponent(item)">
+          组员管理
+        </button>
       </td>
     </tr>
     </tbody>

@@ -2,14 +2,13 @@ import {Routes} from '@angular/router';
 import {BlankLayoutComponent} from "./common/layouts/blankLayout.component";
 import {BasicLayoutComponent} from "./common/layouts/basicLayout.component";
 import {LoginComponent} from "./auth/login.component";
-import {UserComponent} from "./setting/user.component";
-import {GroupComponent} from "./setting/group.component";
+import {UserComponent} from "./setting/user/user.component";
 import {UpcomingTasksComponent} from "./tasks/upcoming.tasks.component";
 import {ProcessingTasksComponent} from "./tasks/processing.tasks.component";
 import {CompleteTasksComponent} from "./tasks/complete.tasks.component";
 import {ClaimTasksComponent} from "./tasks/claim.tasks.component";
 import {TrendGraphComponent} from "./graph/trend.graph.component";
-import {GroupUserComponent} from "./setting/group.user.component";
+import {GroupComponent} from "./setting/group/group.component";
 
 export const ROUTES: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -23,8 +22,7 @@ export const ROUTES: Routes = [
     path: 'setting', component: BasicLayoutComponent,
     children: [
       {path: 'user', component: UserComponent},
-      {path: 'group', component: GroupComponent},
-      {path: 'grpUsr', component: GroupUserComponent}
+      {path: 'group', component: GroupComponent}
     ]
   },
   {

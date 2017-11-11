@@ -29,9 +29,15 @@ public class RbacGroupUserController {
         return ResponseWrapper.success(info);
     }
 
-    @GetMapping("/{groupId}")
+    @GetMapping("user/{groupId}")
     public ResponseWrapper findGroupUsersByGroupId(@PathVariable Long groupId) throws Exception {
-        List<RbacUser> info = rbacGroupUserService.findGroupUsersByGroupId(groupId);
+        List<RbacGroupUser> info = rbacGroupUserService.findGroupUsersByGroupId(groupId);
+        return ResponseWrapper.success(info);
+    }
+
+    @GetMapping("other/{groupId}")
+    public ResponseWrapper findOtherUsersByGroupId(@PathVariable Long groupId) throws Exception {
+        List<RbacUser> info = rbacGroupUserService.findOtherUsersByGroupId(groupId);
         return ResponseWrapper.success(info);
     }
 

@@ -10,9 +10,11 @@ public interface RbacGroupUserService {
 
     List<RbacGroupUser> save(List<RbacGroupUser> rbacGroupUsers);
 
-    List<RbacUser> findGroupUsersByGroupId(Long groupId);
+    List<RbacGroupUser> findGroupUsersByGroupId(Long groupId);
 
     int removeUsersFromGroup(List<Long> reIds);
 
     List<RbacGroupUser> findGroupUsersByUserId(Long userId);
+
+    List<RbacUser> findOtherUsersByGroupId(Long groupId);
 }
