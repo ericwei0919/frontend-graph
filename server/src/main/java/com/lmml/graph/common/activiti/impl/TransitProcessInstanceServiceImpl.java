@@ -7,7 +7,10 @@ import com.lmml.graph.common.activiti.beans.BpmTaskCommand;
 import com.lmml.graph.common.activiti.beans.PagingTask;
 import com.lmml.graph.common.activiti.beans.ProcessInstance;
 import com.lmml.graph.common.util.WorkflowConst;
+import com.lmml.graph.domain.activiti.ActivitiSummary;
 import com.lmml.graph.domain.authority.RbacGroupUser;
+import com.lmml.graph.domain.authority.RbacUser;
+import com.lmml.graph.service.activiti.ActivitiSummaryService;
 import com.lmml.graph.service.authority.RbacGroupUserService;
 import org.activiti.engine.task.TaskInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,9 @@ public class TransitProcessInstanceServiceImpl implements TransitProcessInstance
 
     @Autowired
     private RbacGroupUserService rbacGroupUserService;
+
+    @Autowired
+    private ActivitiSummaryService activitiSummaryService;
 
     @Override
     public ProcessInstance getProcessInstance(Long actBusinessId) {
@@ -106,10 +112,18 @@ public class TransitProcessInstanceServiceImpl implements TransitProcessInstance
         List<TaskInfo> candidateGroupTasks = inquireWorkFlowService.getTaskByCandidateGroup(groups, null, null);
         List<TaskInfo> assigneeTasks = inquireWorkFlowService.getTaskByAssignee(userId, null, null);
         List<TaskInfo> candidateUserTasks = inquireWorkFlowService.getTaskByCandidateUser(userId, null, null);
-        candidateGroupTasks.removeAll(assigneeTasks);
-        candidateGroupTasks.removeAll(candidateUserTasks);
-        candidateGroupTasks.addAll(assigneeTasks);
-        candidateGroupTasks.addAll(candidateUserTasks);
+        if (candidateGroupTasks.size()>0){
+            candidateGroupTasks.removeAll(assigneeTasks);
+            candidateGroupTasks.addAll(assigneeTasks);
+        } else {
+            candidateGroupTasks = assigneeTasks;
+        }
+        if (candidateGroupTasks.size()>0){
+            candidateGroupTasks.removeAll(candidateUserTasks);
+            candidateGroupTasks.addAll(candidateUserTasks);
+        } else {
+            candidateGroupTasks = candidateUserTasks;
+        }
         return candidateGroupTasks;
     }
 
@@ -164,7 +178,19 @@ public class TransitProcessInstanceServiceImpl implements TransitProcessInstance
         ProcessInstance processInstance = new ProcessInstance();
         Map<String, Object> processVariables = taskInfo.getProcessVariables();
         Long actBusinessId = (Long) processVariables.get(WorkflowConst.KEY_ACT_THREA_CODE);
-        processInstance.setActBusinessId(actBusinessId);
+        ActivitiSummary activitiSummary = activitiSummaryService.findById(actBusinessId);
+        if (null != activitiSummary){
+            processInstance.setActBusinessId(actBusinessId);
+            processInstance.setApplicantName(activitiSummary.getAssignee().getUserName());
+            processInstance.setApplicantTime(activitiSummary.getCreateTimestamp()+"");
+            processInstance.setApplicantTypeName(activitiSummary.getActivitiType());
+            processInstance.setPreviousApprovertatus(activitiSummary.getTaskStatus());
+            RbacUser previousApprover = activitiSummary.getPreviousApprover();
+            if (null != previousApprover){
+                processInstance.setPreviousApproverName(previousApprover.getUserName());
+                processInstance.setLastProcessingTime(activitiSummary.getUpdateTimestamp()+"");
+            }
+        }
         return processInstance;
     }
 

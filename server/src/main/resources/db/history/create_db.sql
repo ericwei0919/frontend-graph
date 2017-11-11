@@ -36,8 +36,15 @@ CREATE TABLE `activiti_obj_re` (
   `process_instance_id` varchar(64) NOT NULL,
   `activiti_type` varchar(255) DEFAULT NULL,
   `task_status` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `previous_approver` bigint(20) DEFAULT NULL,
+  `update_timestamp` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK6ip7coo709ju3flm7k334ibmu` (`assignee`),
+  KEY `FKriod476efojf9bgs6h364wqto` (`previous_approver`),
+  CONSTRAINT `FK6ip7coo709ju3flm7k334ibmu` FOREIGN KEY (`assignee`) REFERENCES `rbac_user` (`user_id`),
+  CONSTRAINT `FKriod476efojf9bgs6h364wqto` FOREIGN KEY (`previous_approver`) REFERENCES `rbac_user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 -- ----------------------------
 -- Records of activiti_obj_re

@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {BaseComponent} from "../base/base.component";
 
-declare var $:any;
 @Component({
   selector: 'claim-tasks',
-  templateUrl: 'claim.tasks.template.html'
+  template: '<div> <common-task [tasks]="tasks" [todo]="todo" ></common-task></div>'
 })
 export class ClaimTasksComponent extends BaseComponent implements OnInit {
 
@@ -12,4 +11,19 @@ export class ClaimTasksComponent extends BaseComponent implements OnInit {
 
   }
 
+  todo:boolean = false;
+  tasks:any = [
+    {
+      actBusinessId: 'actBusinessId',
+      applicantId: 'applicantId',
+      applicantName: 'applicantName',
+      applicantType: 'applicantType',
+      applicantTypeName: 'applicantTypeName',
+      applicantTime: 'applicantTime',
+      lastProcessingTime: 'lastProcessingTime',
+      previousApproverId: 'previousApproverId',
+      previousApproverName: 'previousApproverName',
+      previousApprovertatus: 'previousApprovertatus'
+    }
+  ]
 }

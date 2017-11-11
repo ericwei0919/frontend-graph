@@ -4,12 +4,14 @@ import lombok.Data;
 
 @Data
 public class ProcessInstance {
-    Long actBusinessId;
-    Long applicantId;
-    Long applicantName;
-    String applicantTime;
-    String lastProcessingTime;
-    String previousApproverId;
-    String previousApproverName;
-    String previousApprovertatus;
+    private Long actBusinessId;
+    private Long applicantId;
+    private String applicantName;
+    private Long applicantType;
+    private String applicantTypeName;
+    private String applicantTime;
+    private String lastProcessingTime;
+    private String previousApproverId;
+    private String previousApproverName;
+    private String previousApprovertatus;
 }

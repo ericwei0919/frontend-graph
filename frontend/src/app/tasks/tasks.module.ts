@@ -7,13 +7,15 @@ import {ProcessingTasksComponent} from "./processing.tasks.component";
 import {CompleteTasksComponent} from "./complete.tasks.component";
 import {UpcomingTasksComponent} from "./upcoming.tasks.component";
 import {ClaimTasksComponent} from "./claim.tasks.component";
+import {CommonTaskComponent} from "./common/common.task.component";
 
 @NgModule({
   declarations: [
     ProcessingTasksComponent,
     CompleteTasksComponent,
     UpcomingTasksComponent,
-    ClaimTasksComponent
+    ClaimTasksComponent,
+    CommonTaskComponent
   ],
   imports: [
     FormsModule,

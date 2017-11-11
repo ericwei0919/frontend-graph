@@ -5,8 +5,11 @@ import com.lmml.graph.common.activiti.beans.BpmTaskCommand;
 import com.lmml.graph.common.interceptor.AuthService;
 import com.lmml.graph.common.util.IdentifierUtil;
 import com.lmml.graph.common.util.WorkflowConst;
+import com.lmml.graph.domain.activiti.ActivitiSummary;
 import com.lmml.graph.domain.authority.RbacGroup;
+import com.lmml.graph.domain.authority.RbacUser;
 import com.lmml.graph.repository.authority.RbacGroupRepository;
+import com.lmml.graph.service.activiti.ActivitiSummaryService;
 import com.lmml.graph.service.authority.RbacGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +30,9 @@ public class RbacGroupServiceImpl implements RbacGroupService {
     private AuthService authService;
 
     @Autowired
+    private ActivitiSummaryService activitiSummaryService;
+
+    @Autowired
     private ProcessWorkFlowService processWorkFlowService;
 
     @Override
@@ -41,7 +47,6 @@ public class RbacGroupServiceImpl implements RbacGroupService {
             rbacGroup.setCreateTimestamp(new Timestamp(new Date().getTime()));
         });
         this.startActivit(groups.get(0).getGroupId());
-        this.assignAndCompleteTask();
         return (List<RbacGroup>) rbacGroupRepo.save(groups);
     }
 
@@ -51,13 +56,35 @@ public class RbacGroupServiceImpl implements RbacGroupService {
     }
 
     boolean startActivit(Long actBusinessId) {
+        Iterable<RbacGroup> all = rbacGroupRepo.findAll();
+        StringBuffer approvalGroups = new StringBuffer();
+        all.forEach(rbacGroup -> {
+            if (actBusinessId.longValue() != rbacGroup.getGroupId().longValue()) {
+                approvalGroups.append(String.valueOf(rbacGroup.getGroupId()) + ",");
+            }
+        });
+        if (approvalGroups.length() > 0) {
+            approvalGroups.deleteCharAt(approvalGroups.length() - 1);
+        }
+        long activitiSummaryId = IdentifierUtil.generateID();
         Map<String, Object> variableMap = new HashMap<>();
-        variableMap.put("approvers", "15097999920830,1509799992000,15098000038991,1509800004000,15098000274222");
-        variableMap.put("classify", "user");
-        variableMap.put(WorkflowConst.KEY_ACT_THREA_CODE, actBusinessId);
+        variableMap.put("approvalGroups", approvalGroups.toString());
+        variableMap.put("classify", "group");
+        variableMap.put(WorkflowConst.KEY_ACT_THREA_CODE, activitiSummaryId);
         variableMap.put("applyer", String.valueOf(authService.getUserId()));
         String processInstanceId = processWorkFlowService.start("activiti_designated_approval", variableMap);
-        System.out.println(processInstanceId);
+        ActivitiSummary activitiSummary = new ActivitiSummary();
+        RbacUser assignee = new RbacUser();
+        assignee.setUserId(authService.getUserId());
+        activitiSummary.setAssignee(assignee);
+        activitiSummary.setCreateTimestamp(new Timestamp(new Date().getTime()));
+        activitiSummary.setActivitiType("分组新增");
+        activitiSummary.setHostObjId(actBusinessId);
+        activitiSummary.setProcessInstanceId(processInstanceId);
+        activitiSummary.setTaskStatus("提交申请");
+        activitiSummary.setTableName("rbac_group");
+        activitiSummary.setId(activitiSummaryId);
+        activitiSummaryService.save(activitiSummary);
         return true;
     }
 
