@@ -123,7 +123,6 @@ export class CommonProcessTaskComponent extends BaseComponent implements OnInit 
     if (this.approvalList && this.approvalList.length > 0 ){
       let param = this.getApprovalsObj();
       param['variableMap'].attitude = "agree";
-      console.log(this.task);
       this.httpService.post("task/"+this.task.actBusinessId+"/pushTask",param).subscribe(res => {
         this.bsModalRef.hide();
       });
@@ -131,5 +130,31 @@ export class CommonProcessTaskComponent extends BaseComponent implements OnInit 
 
   }
 
+  assignTask(){
+    this.httpService.post("task/"+this.task.actBusinessId+"/assign",{}).subscribe(res => {
+      this.bsModalRef.hide();
+    });
+  }
+
+  completeTask(){
+    if (this.approvalList && this.approvalList.length > 0 ){
+      let param = this.getApprovalsObj();
+      param['variableMap'].attitude = "agree";
+      this.httpService.post("task/"+this.task.actBusinessId+"/complete",param).subscribe(res => {
+        this.bsModalRef.hide();
+      });
+    }
+  }
+
+  finishTask(){
+    console.log("finishTask");
+    let param = {};
+    param['variableMap'] = {
+      "attitude": "annulment"
+    };
+    this.httpService.post("task/"+this.task.actBusinessId+"/pushTask",param).subscribe(res => {
+      this.bsModalRef.hide();
+    });
+  }
 
 }
