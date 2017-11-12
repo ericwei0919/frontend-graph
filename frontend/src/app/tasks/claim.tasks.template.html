@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h1>任务填写</h1>
+      </div>
+      <div class="ibox-content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="title">任务类别</label>
+              <select id="title" class="form-control m-b"
+                      [(ngModel)]="selectedValue"
+                      name="taskValue" placeholder="请选择任务类别">
+                <option *ngFor="let taskType of taskTypes;"
+                        [ngValue]="taskType">{{taskType.name}}
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">任务内容</label>
+              <textarea class="form-control" id="message" rows="5" [(ngModel)]="content"
+                        style="resize:none" placeholder="请输入任务内容"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12" style="margin-top: 5px;">
+          <div class="col-sm-4">
+            <select class="form-control m-b"
+                    [(ngModel)]="classify"
+                    (ngModelChange)="onClassifyChange($event)">
+              <option value='user'>待办人</option>
+              <option value='group'>待办组</option>
+            </select>
+          </div>
+          <div class="col-sm-8" *ngIf="classify == 'user'">
+            <div class="input-group">
+              <ng-template #customItemTemplate
+                           let-model="item"
+                           let-index="index"
+              >
+              </ng-template>
+              <input [(ngModel)]="userSelectedShow"
+                     (typeaheadNoResults)="changeTypeaheadNoResults($event)"
+                     (typeaheadOnSelect)="typeaheadOnSelect($event)"
+                     [typeahead]="users"
+                     typeaheadOptionField="fieldName"
+                     [typeaheadOptionsLimit]="8"
+                     class="form-control">
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-primary" (click)="addApproval()">确认添加</button>
+              </span>
+            </div>
+          </div>
+          <div class="col-sm-8" *ngIf="classify == 'group'">
+            <div class="input-group">
+              <ng-template #customItemTemplate
+                           let-model="item"
+                           let-index="index"
+              >
+              </ng-template>
+              <input [(ngModel)]="groupSelectedShow"
+                     (typeaheadNoResults)="changeTypeaheadNoResults($event)"
+                     (typeaheadOnSelect)="typeaheadOnSelect($event)"
+                     [typeahead]="groups"
+                     typeaheadOptionField="fieldName"
+                     [typeaheadOptionsLimit]="8"
+                     class="form-control">
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-primary" (click)="addApproval()">确认添加</button>
+                </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12" style="padding-top: 5px;height: 150px;">
+          <ul class="tag-list" style="padding: 0">
+            <li *ngFor="let item of approvalList;let idx = index">
+              {{item.fieldName}}
+              <i class="fa fa-trash-o" (click)="removeApproval(item)"></i>
+            </li>
+          </ul>
+        </div>
+        <button class="btn btn-primary btn-rounded btn-block"
+                (click)="postATask()" type="button"
+                [disabled]="!content">
+          <i class="fa fa-info-circle"></i>发布任务
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

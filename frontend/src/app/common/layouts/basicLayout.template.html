@@ -3,11 +3,12 @@
     <ul class="sortable-list connectList agile-list ui-sortable">
       <li [ngClass]="getCSSClasses('user')" (click)="gotoActiveRoute('setting/user')"> 用户管理</li>
       <li [ngClass]="getCSSClasses('group')" (click)="gotoActiveRoute('setting/group')"> 分组管理</li>
-      <li [ngClass]="getCSSClasses('claim')" (click)="gotoActiveRoute('tasks/claim')"> 我来抢单</li>
+      <li [ngClass]="getCSSClasses('claim')" (click)="gotoActiveRoute('tasks/claim')"> 发布任务</li>
       <li [ngClass]="getCSSClasses('upcoming')" (click)="gotoActiveRoute('tasks/upcoming')"> 待办任务</li>
       <li [ngClass]="getCSSClasses('processing')" (click)="gotoActiveRoute('tasks/processing')"> 进行中任务</li>
       <li [ngClass]="getCSSClasses('complete')" (click)="gotoActiveRoute('tasks/complete')"> 已完成任务</li>
       <li [ngClass]="getCSSClasses('trend')" (click)="gotoActiveRoute('graph/trend')"> 业务走势图</li>
+      <li class="danger-element" (click)="gotoActiveRoute('')"> 退出登录</li>
     </ul>
   </div>
   <div class="col-lg-10">
