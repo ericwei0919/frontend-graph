@@ -68,8 +68,11 @@ public class InquireWorkFlowServiceImpl implements InquireWorkFlowService {
         for (Long candidateGroupId : candidateGroups) {
             queryGroups.add(String.valueOf(candidateGroupId));
         }
-        TaskQuery query = taskService.createTaskQuery().taskCandidateGroupIn(queryGroups).includeProcessVariables();
-        return this.getTaskInfos(query, processDefKey, variableFilters);
+        if (queryGroups.size()>0){
+            TaskQuery query = taskService.createTaskQuery().taskCandidateGroupIn(queryGroups).includeProcessVariables();
+            return this.getTaskInfos(query, processDefKey, variableFilters);
+        }
+        return null;
     }
 
 

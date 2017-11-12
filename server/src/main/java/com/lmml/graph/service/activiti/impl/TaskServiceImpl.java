@@ -1,6 +1,7 @@
 package com.lmml.graph.service.activiti.impl;
 
 import com.lmml.graph.common.activiti.TransitProcessInstanceService;
+import com.lmml.graph.common.activiti.beans.BpmTaskCommand;
 import com.lmml.graph.common.activiti.beans.PagingTask;
 import com.lmml.graph.common.activiti.beans.ProcessInstance;
 import com.lmml.graph.common.interceptor.AuthService;
@@ -36,4 +37,21 @@ public class TaskServiceImpl implements TaskService {
     public PagingTask<ProcessInstance> getClaimTasks(int index, int pageSize) {
         return transitProcessInstanceService.getClaimTasks(authService.getUserId(),0,50);
     }
+
+    @Override
+    public boolean assignTask(Long hostObjectId, BpmTaskCommand bpmTaskCommand) {
+        return transitProcessInstanceService.assignTask(authService.getUserId(),hostObjectId,bpmTaskCommand);
+    }
+
+    @Override
+    public boolean completeTask(Long hostObjectId, BpmTaskCommand bpmTaskCommand) {
+        return transitProcessInstanceService.completeTask(authService.getUserId(),hostObjectId,bpmTaskCommand,bpmTaskCommand.getVariableMap());
+    }
+
+    @Override
+    public boolean assignAndCompleteTask(Long hostObjectId, BpmTaskCommand bpmTaskCommand) {
+        return transitProcessInstanceService.assignAndCompleteTask(authService.getUserId(),hostObjectId,bpmTaskCommand);
+
+    }
+
 }

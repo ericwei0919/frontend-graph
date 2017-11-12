@@ -1,5 +1,6 @@
 package com.lmml.graph.service.activiti;
 
+import com.lmml.graph.common.activiti.beans.BpmTaskCommand;
 import com.lmml.graph.common.activiti.beans.PagingTask;
 import com.lmml.graph.common.activiti.beans.ProcessInstance;
 
@@ -13,4 +14,9 @@ public interface TaskService {
 
     PagingTask<ProcessInstance> getClaimTasks(int index, int pageSize);
 
+    boolean assignTask(Long hostObjectId, BpmTaskCommand bpmTaskCommand);
+
+    boolean completeTask(Long hostObjectId, BpmTaskCommand bpmTaskCommand);
+
+    boolean assignAndCompleteTask(Long hostObjectId, BpmTaskCommand bpmTaskCommand);
 }

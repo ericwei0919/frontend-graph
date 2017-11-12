@@ -45,3 +45,24 @@
   font-size: 12px;
 }
 /* DIFF */
+ul.tag-list li {
+  list-style: none;
+}
+.tag-list li {
+  float: left;
+}
+.tag-list li {
+  font-size: 10px;
+  background-color: #f3f3f4;
+  padding: 5px 12px;
+  color: inherit;
+  border-radius: 2px;
+  border: 1px solid #e7eaec;
+  margin-right: 5px;
+  margin-top: 5px;
+  display: block;
+}
+.tag-list li i{
+  margin-left: 5px;
+  cursor: pointer;
+}

@@ -27,7 +27,8 @@ import {AddGroupComponent} from "./group/add.group.component";
   exports: [],
   entryComponents: [
     GroupUserComponent,
-    AddGroupComponent]
+    AddGroupComponent
+  ]
 })
 
 export class SettingModule {

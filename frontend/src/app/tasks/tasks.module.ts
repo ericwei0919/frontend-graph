@@ -8,6 +8,9 @@ import {CompleteTasksComponent} from "./complete.tasks.component";
 import {UpcomingTasksComponent} from "./upcoming.tasks.component";
 import {ClaimTasksComponent} from "./claim.tasks.component";
 import {CommonTaskComponent} from "./common/common.task.component";
+import {ModalModule,TypeaheadModule} from "ngx-bootstrap/index";
+import {CommonProcessTaskComponent} from "./common/classify/common.process.task.component";
+import {TabsModule} from "ngx-bootstrap/index";
 
 @NgModule({
   declarations: [
@@ -15,15 +18,22 @@ import {CommonTaskComponent} from "./common/common.task.component";
     CompleteTasksComponent,
     UpcomingTasksComponent,
     ClaimTasksComponent,
-    CommonTaskComponent
+    CommonTaskComponent,
+    CommonProcessTaskComponent
   ],
   imports: [
     FormsModule,
     BrowserModule,
     RouterModule,
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+    ModalModule.forRoot(),
+    TypeaheadModule.forRoot(),
+    TabsModule.forRoot()
   ],
   exports: [],
+  entryComponents: [
+    CommonProcessTaskComponent
+  ]
 })
 
 export class TasksModule {

@@ -112,13 +112,13 @@ public class TransitProcessInstanceServiceImpl implements TransitProcessInstance
         List<TaskInfo> candidateGroupTasks = inquireWorkFlowService.getTaskByCandidateGroup(groups, null, null);
         List<TaskInfo> assigneeTasks = inquireWorkFlowService.getTaskByAssignee(userId, null, null);
         List<TaskInfo> candidateUserTasks = inquireWorkFlowService.getTaskByCandidateUser(userId, null, null);
-        if (candidateGroupTasks.size()>0){
+        if (null != candidateGroupTasks && candidateGroupTasks.size() > 0) {
             candidateGroupTasks.removeAll(assigneeTasks);
             candidateGroupTasks.addAll(assigneeTasks);
         } else {
             candidateGroupTasks = assigneeTasks;
         }
-        if (candidateGroupTasks.size()>0){
+        if (null != candidateGroupTasks && candidateGroupTasks.size() > 0) {
             candidateGroupTasks.removeAll(candidateUserTasks);
             candidateGroupTasks.addAll(candidateUserTasks);
         } else {
@@ -179,16 +179,16 @@ public class TransitProcessInstanceServiceImpl implements TransitProcessInstance
         Map<String, Object> processVariables = taskInfo.getProcessVariables();
         Long actBusinessId = (Long) processVariables.get(WorkflowConst.KEY_ACT_THREA_CODE);
         ActivitiSummary activitiSummary = activitiSummaryService.findById(actBusinessId);
-        if (null != activitiSummary){
+        if (null != activitiSummary) {
             processInstance.setActBusinessId(actBusinessId);
             processInstance.setApplicantName(activitiSummary.getAssignee().getUserName());
-            processInstance.setApplicantTime(activitiSummary.getCreateTimestamp()+"");
+            processInstance.setApplicantTime(activitiSummary.getCreateTimestamp() + "");
             processInstance.setApplicantTypeName(activitiSummary.getActivitiType());
             processInstance.setPreviousApprovertatus(activitiSummary.getTaskStatus());
             RbacUser previousApprover = activitiSummary.getPreviousApprover();
-            if (null != previousApprover){
+            if (null != previousApprover) {
                 processInstance.setPreviousApproverName(previousApprover.getUserName());
-                processInstance.setLastProcessingTime(activitiSummary.getUpdateTimestamp()+"");
+                processInstance.setLastProcessingTime(activitiSummary.getUpdateTimestamp() + "");
             }
         }
         return processInstance;
