@@ -29,6 +29,9 @@ export class GroupComponent extends BaseComponent implements OnInit {
   openAddGroupComponent() {
     this.addBsModalRef = this.modalService.show(AddGroupComponent);
     this.addBsModalRef.content.bsModalRef = this.addBsModalRef;
+    this.addBsModalRef.content.onClose.subscribe(result => {
+      console.log('results', result);
+    })
   }
 
   query() {
