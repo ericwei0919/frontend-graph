@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import {BaseComponent} from "../../../base/base.component";
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'common-process-task',
@@ -8,13 +9,13 @@ import {BaseComponent} from "../../../base/base.component";
 })
 export class CommonProcessTaskComponent extends BaseComponent implements OnInit {
   bsModalRef:BsModalRef;
-
+  public onClose:Subject<boolean>;
   task:any = {};
   groups:any = [];
-
   users:any = [];
-
+  todo:boolean;
   ngOnInit():void {
+    this.onClose = new Subject();
     this.queryGroup();
     this.queryUser();
   }
@@ -125,6 +126,7 @@ export class CommonProcessTaskComponent extends BaseComponent implements OnInit 
       param['variableMap'].attitude = "agree";
       this.httpService.post("task/"+this.task.actBusinessId+"/pushTask",param).subscribe(res => {
         this.bsModalRef.hide();
+        this.onClose.next(true);
       });
     }
 
@@ -133,6 +135,7 @@ export class CommonProcessTaskComponent extends BaseComponent implements OnInit 
   assignTask(){
     this.httpService.post("task/"+this.task.actBusinessId+"/assign",{}).subscribe(res => {
       this.bsModalRef.hide();
+      this.onClose.next(true);
     });
   }
 
@@ -142,6 +145,7 @@ export class CommonProcessTaskComponent extends BaseComponent implements OnInit 
       param['variableMap'].attitude = "agree";
       this.httpService.post("task/"+this.task.actBusinessId+"/complete",param).subscribe(res => {
         this.bsModalRef.hide();
+        this.onClose.next(true);
       });
     }
   }
@@ -154,6 +158,7 @@ export class CommonProcessTaskComponent extends BaseComponent implements OnInit 
     };
     this.httpService.post("task/"+this.task.actBusinessId+"/pushTask",param).subscribe(res => {
       this.bsModalRef.hide();
+      this.onClose.next(true);
     });
   }
 

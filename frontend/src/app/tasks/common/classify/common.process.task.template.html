@@ -72,8 +72,8 @@
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">关闭</button>
-  <button type="button" class="btn btn-primary" (click)="assignTask()">我来认领</button>
-  <button type="button" class="btn btn-success" (click)="completeTask()">我已处理</button>
-  <button type="button" class="btn btn-warning" (click)="assignAndCompleteTask()">认领并处理</button>
-  <button type="button" class="btn btn-danger"  (click)="finishTask()">终止任务</button>
+  <button type="button" class="btn btn-primary" *ngIf='todo' (click)="assignTask()" >我来认领</button>
+  <button type="button" class="btn btn-success" *ngIf='todo' (click)="completeTask()">我已处理</button>
+  <button type="button" class="btn btn-warning" *ngIf='todo' (click)="assignAndCompleteTask()">认领并处理</button>
+  <button type="button" class="btn btn-danger"  *ngIf='todo' (click)="finishTask()">终止任务</button>
 </div>
