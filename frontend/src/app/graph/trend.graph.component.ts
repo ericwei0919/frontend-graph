@@ -35,7 +35,7 @@ export class TrendGraphComponent extends BaseComponent implements OnDestroy,OnIn
   chartOption :any = {
     backgroundColor: '#21202D',
     title : {
-      text: '工作流类别',
+      text: '工作流类别占比',
       x:'center',
       textStyle: {
         color: '#aaa',
@@ -73,7 +73,7 @@ export class TrendGraphComponent extends BaseComponent implements OnDestroy,OnIn
     calculable : true,
     series : [
       {
-        name:'车场收入及占比',
+        name:'工作流类别占比',
         type:'pie',
         radius : [0, 200],
         center : ['50%', '50%'],
