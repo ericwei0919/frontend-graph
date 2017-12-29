@@ -12,4 +12,6 @@ public interface ActivitiSummaryService {
 
     List<ActivitiSummary> save(List<ActivitiSummary> activitiSummarys);
 
+    List<ActivitiSummary> getAll();
+
 }

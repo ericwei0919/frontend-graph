@@ -48,6 +48,7 @@ public class TaskTemplateServiceImpl implements TaskTemplateService {
             variableMap = new HashMap<>();
         }
         variableMap.put(WorkflowConst.KEY_ACT_THREA_CODE, activitiSummaryId);
+        variableMap.put(WorkflowConst.KEY_ACT_TYPE_CODE, taskTemplateDto.getTemplateName());
         variableMap.put("applyer", String.valueOf(authService.getUserId()));
         String processInstanceId = processWorkFlowService.start("activiti_designated_approval", variableMap);
         ActivitiSummary activitiSummary = new ActivitiSummary();

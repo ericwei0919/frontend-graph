@@ -33,4 +33,9 @@ public class ActivitiSummaryServiceImpl implements ActivitiSummaryService {
     public List<ActivitiSummary> save(List<ActivitiSummary> activitiSummarys) {
         return (List<ActivitiSummary> )activitiSummaryRepo.save(activitiSummarys);
     }
+
+    @Override
+    public List<ActivitiSummary> getAll() {
+        return (List<ActivitiSummary>) activitiSummaryRepo.findAll();
+    }
 }

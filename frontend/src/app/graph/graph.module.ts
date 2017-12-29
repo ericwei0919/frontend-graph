@@ -4,6 +4,7 @@ import {RouterModule} from "@angular/router";
 import {FormsModule} from '@angular/forms';
 import {TooltipModule} from "ngx-bootstrap/index";
 import {TrendGraphComponent} from "./trend.graph.component";
+import {AngularEchartsModule} from 'ngx-echarts';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import {TrendGraphComponent} from "./trend.graph.component";
     FormsModule,
     BrowserModule,
     RouterModule,
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+    AngularEchartsModule
   ],
   exports: [],
 })

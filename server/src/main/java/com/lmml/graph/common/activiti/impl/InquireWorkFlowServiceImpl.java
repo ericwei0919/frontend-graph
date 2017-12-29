@@ -6,8 +6,7 @@ import com.lmml.graph.common.util.WorkflowConst;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
-import org.activiti.engine.history.HistoricTaskInstance;
-import org.activiti.engine.history.HistoricTaskInstanceQuery;
+import org.activiti.engine.history.*;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskInfo;
 import org.activiti.engine.task.TaskQuery;
@@ -118,4 +117,56 @@ public class InquireWorkFlowServiceImpl implements InquireWorkFlowService {
         List<Task> tasks = query.list();
         return (List<TaskInfo>) (List<?>) tasks;
     }
+
+    List<TaskInfo> getTaskTypes(Map<String, Object> varFilters) {
+        List<HistoricProcessInstance> list = historyService
+                .createHistoricProcessInstanceQuery()
+                .processDefinitionKey(WorkflowConst.KEY_ACT_TYPE_CODE)
+                .orderByProcessInstanceStartTime().asc()//排序
+                .list();
+        if (list != null && list.size() > 0) {
+            for (HistoricProcessInstance hpi : list) {
+                System.out.println("流程定义ID：" + hpi.getProcessDefinitionId());
+                System.out.println("流程实例ID：" + hpi.getId());
+                System.out.println("开始时间：" + hpi.getStartTime());
+                System.out.println("结束时间：" + hpi.getEndTime());
+                System.out.println("流程持续时间：" + hpi.getDurationInMillis());
+                System.out.println("=======================================");
+            }
+        }
+        return  null;
+    }
+
+    public void queryHistoricActivitiInstance() {
+        String processInstanceId = "27501";
+        List<HistoricActivityInstance> list = historyService
+                .createHistoricActivityInstanceQuery()
+                .processInstanceId(processInstanceId)
+                .list();
+        if (list != null && list.size() > 0) {
+            for (HistoricActivityInstance hai : list) {
+                System.out.println(hai.getId());
+                System.out.println("步骤ID：" + hai.getActivityId());
+                System.out.println("步骤名称：" + hai.getActivityName());
+                System.out.println("执行人：" + hai.getAssignee());
+                System.out.println("====================================");
+            }
+        }
+    }
+
+    public void queryHistoricVariables() {
+        String processInstanceId = "37501";
+        List<HistoricVariableInstance> list = historyService
+                .createHistoricVariableInstanceQuery()
+                .processInstanceId(processInstanceId)
+                .list();
+        if(list != null && list.size()>0){
+            for(HistoricVariableInstance hvi : list){
+                System.out.print("piId:"+hvi.getProcessInstanceId()+"，");
+                System.out.print("variablesName:"+hvi.getVariableName()+"，");
+                System.out.println("variablesValue:"+hvi.getValue()+";");
+            }
+        }
+    }
+
 }
