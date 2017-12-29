@@ -53,6 +53,7 @@ public class InquireWorkFlowServiceImpl implements InquireWorkFlowService {
         if (null == assignee) {
             return null;
         }
+        this.getTaskTypes(varFilters);
         TaskQuery query = taskService.createTaskQuery().taskAssignee(String.valueOf(assignee))
                 .includeProcessVariables().orderByTaskCreateTime().asc();
         return this.getTaskInfos(query, processDefKey, varFilters);
