@@ -28,7 +28,7 @@ public class TaskController {
         return ResponseWrapper.success(info);
     }
 
-    @GetMapping("/completed")
+    @GetMapping("/completed" )
     public ResponseWrapper<PagingTask<ProcessInstance>> getCompletedTasks() throws Exception {
         PagingTask<ProcessInstance> info = taskService.getCompletedTasks(0, 0);
         return ResponseWrapper.success(info);
@@ -55,7 +55,7 @@ public class TaskController {
     @PostMapping("{hostObjectId}/pushTask")
     public ResponseWrapper assignAndCompleteTask(@PathVariable Long hostObjectId, @RequestBody BpmTaskCommand bpmTaskCommand) throws Exception {
         boolean success = taskService.assignAndCompleteTask(hostObjectId, bpmTaskCommand);
-        return ResponseWrapper.success(success);
+        return ResponseWrapper.success(!success);
     }
 
 }

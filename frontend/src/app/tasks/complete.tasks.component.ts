@@ -12,7 +12,7 @@ export class CompleteTasksComponent extends BaseComponent implements OnInit {
   }
 
   getCompletedTask() {
-    this.httpService.get("task/completed").subscribe(res => {
+    this.httpService.get('task/completed').subscribe(res => {
       this.tasks = res.content.data;
     });
   }
