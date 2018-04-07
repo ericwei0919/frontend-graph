@@ -1,5 +1,5 @@
-<div style="width: 100%;overflow-x: hidden;margin-top: 20px;">
-  <div class="col-lg-2">
+<div class="row">
+  <div class="col-md-2">
     <ul class="sortable-list connectList agile-list ui-sortable">
       <li [ngClass]="getCSSClasses('user')" (click)="gotoActiveRoute('setting/user')"> 用户管理</li>
       <li [ngClass]="getCSSClasses('group')" (click)="gotoActiveRoute('setting/group')"> 分组管理</li>
@@ -11,7 +11,7 @@
       <li class="danger-element" (click)="gotoActiveRoute('')"> 退出登录</li>
     </ul>
   </div>
-  <div class="col-lg-10">
+  <div class="col-md-10">
     <router-outlet></router-outlet>
   </div>
 </div>

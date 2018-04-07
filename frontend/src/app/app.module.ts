@@ -20,7 +20,8 @@ import {ModalModule} from "ngx-bootstrap/index";
     BaseComponent
   ],
   imports: [
-    BrowserModule,HttpModule,
+    BrowserModule,
+    HttpModule,
     RouterModule.forRoot(ROUTES),
     ModalModule.forRoot(),
     AuthModule,
