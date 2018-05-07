@@ -9,6 +9,8 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {GeneralErrorHandler} from './common/general.error.handler';
 import {ResourceService} from './common/resource.service';
 import {BaseService} from './common/base.service';
+import {SpinComponent} from './common/spin/spin.component';
+import {SpinService} from './common/spin/spin.service';
 
 @NgModule({
     imports: [
@@ -18,12 +20,14 @@ import {BaseService} from './common/base.service';
         HttpClientModule
     ],
     declarations: [
-        AppComponent
+        AppComponent,
+        SpinComponent
     ],
     providers: [
         RestService,
         ResourceService,
         BaseService,
+        SpinService,
         {provide: LocationStrategy, useClass: HashLocationStrategy},
         {provide: ErrorHandler, useClass: GeneralErrorHandler}
     ],
