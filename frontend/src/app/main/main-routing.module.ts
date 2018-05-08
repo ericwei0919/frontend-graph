@@ -2,6 +2,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
 import {MainOutletComponent} from './main.outlet.component';
 import {ComingSoonComponent} from './components/comingSoon/coming.soon.component';
+import {HomepageComponent} from './framework/homepage.component';
 
 const routes: Routes = [
     {
@@ -9,14 +10,15 @@ const routes: Routes = [
         component: MainOutletComponent,
         children: [
             {path: 'comingSoon', component: ComingSoonComponent},
-            {path: '', redirectTo: 'comingSoon', pathMatch: 'full'},
-            {path: '**', redirectTo: 'comingSoon'}
+            {path: 'homepage', component: HomepageComponent},
+            {path: '', redirectTo: 'homepage', pathMatch: 'full'},
+            {path: '**', redirectTo: 'homepage'}
         ]
     }];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule],
+    exports: [RouterModule]
 })
 export class MainRoutingModule {
 }
