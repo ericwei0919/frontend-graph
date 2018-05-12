@@ -1,0 +1,12 @@
+# IDE Files #
+.idea/*
+*.iml
+
+# Third-part Files #
+**/node_modules/*
+/node_modules/
+
+# Temp and Log Files #
+*.log
+
+package-lock.json
